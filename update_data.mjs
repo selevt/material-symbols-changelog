@@ -80,7 +80,7 @@ function sortObjByKey(value) {
 const icons = await fetchIcons();
 const iconNames = icons.map(icon => icon.name);
 
-console.log('got icon names', iconNames);
+console.log(`got ${iconNames.length} icon names`);
 
 const res = {};
 await doChunked(iconNames, 100, async (iconName) => {
@@ -140,6 +140,7 @@ if (lastExists) {
                 after: res[name],
             }))
         });
+
 
         await writeFile(changelogPath, JSON.stringify(sortObjByKey(changelog)), { encoding: 'utf-8' });
 
