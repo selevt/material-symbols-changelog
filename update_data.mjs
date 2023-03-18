@@ -46,11 +46,6 @@ const fetchIcon = async (icon) => {
     return await iconRes.text()
 };
 
-const downloadIcon = async (icon, dlpath) => {
-    const svg = await fetchIcon(icon);
-    writeFile(dlpath, svg);
-};
-
 const doChunked = async (input, chunkSize, callback) => {
     let i = 0;
     const processing = [...input];
@@ -78,10 +73,6 @@ await doChunked(iconNames, 100, async (iconName) => {
     const svg = await fetchIcon(iconName);
     res[iconName] = svg;
 })
-
-// TODO: read previous last.json
-// TODO: if it exists, do diff, detect new icons, removed icons, changed icons
-
 
 const lastExists = await stat(lastIconsPath)
     .then(s => s.isFile)
@@ -146,23 +137,3 @@ const fileContent = {
     icons: res,
 };
 await writeFile(lastIconsPath, JSON.stringify(fileContent), {encoding: 'utf-8'});
-
-/*
-const targetDir = resolve(process.cwd(), 'last2');
-let i = 0;
-const BATCH_SIZE = 100;
-const mutIcons = [...iconNames];
-while (mutIcons.length) {
-    const chunk = mutIcons.splice(0, BATCH_SIZE);
-    const tasks = [];
-
-    for (const iconName of chunk) {
-        const iconPath = resolve(targetDir, iconName + '.svg')
-        tasks.push(downloadIcon(iconName, iconPath));
-        i++;
-    }
-
-    await Promise.all(tasks);
-    console.log(`${i} / ${iconNames.length}`);
-}
-*/

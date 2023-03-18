@@ -1,0 +1,54 @@
+<script>
+    /** @type {string} */
+    export let title;
+    export let icons;
+</script>
+
+{#if icons?.length}
+    <section class="icons_section">
+        <h3>{title}</h3>
+        <div class="icon_list">
+            {#each icons as info}
+                <div class='info_box'>
+                    <div><code>{info.name}</code></div>
+                    {#if info.icon}
+                        <div>{@html info.icon}</div>
+                    {:else if info.before && info.after}
+                        <div class='changed_icon'>
+                            <div class='del'>{@html info.before}</div>
+                            <div>&rarr;</div>
+                            <div class='ins'>{@html info.after}</div>
+                        </div>
+                    {/if}
+                </div>
+            {/each}
+        </div>
+    </section>
+{/if}
+
+<style>
+    .icons_section {
+        --block-spacing-vertical: calc(var(--spacing) * 1.5);
+    }
+    .icon_list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .ins { color: var(--ins-color); }
+    .del { color: var(--del-color); }
+    .info_box {
+        border: 1px solid #999;
+        border-radius: 4px;
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .changed_icon {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+</style>
