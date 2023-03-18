@@ -63,6 +63,20 @@ const doChunked = async (input, chunkSize, callback) => {
     }
 }
 
+function sortObjByKey(value) {
+    return (typeof value === 'object') ?
+      (Array.isArray(value) ?
+        value.map(sortObjByKey) :
+        Object.keys(value).sort().reduce(
+          (o, key) => {
+            const v = value[key];
+            o[key] = sortObjByKey(v);
+            return o;
+          }, {})
+      ) :
+      value;
+  }
+
 const icons = await fetchIcons();
 const iconNames = icons.map(icon => icon.name);
 
@@ -127,7 +141,7 @@ if (lastExists) {
             }))
         });
 
-        await writeFile(changelogPath, JSON.stringify(changelog), { encoding: 'utf-8' });
+        await writeFile(changelogPath, JSON.stringify(sortObjByKey(changelog)), { encoding: 'utf-8' });
 
     }
 
@@ -136,4 +150,4 @@ if (lastExists) {
 const fileContent = {
     icons: res,
 };
-await writeFile(lastIconsPath, JSON.stringify(fileContent), {encoding: 'utf-8'});
+await writeFile(lastIconsPath, JSON.stringify(sortObjByKey(fileContent)), {encoding: 'utf-8'});
