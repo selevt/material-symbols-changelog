@@ -1,5 +1,7 @@
 import { resolve } from 'node:path';
 import { stat, writeFile, readFile } from 'node:fs/promises';
+import { doChunked, writeSortedJson } from './util.mjs';
+import { diffVersion } from './calc_diff.mjs';
 
 const targetDir = resolve(process.cwd(), 'data');
 const lastIconsPath = resolve(targetDir, 'last.json');
@@ -46,37 +48,6 @@ const fetchIcon = async (icon) => {
     return await iconRes.text()
 };
 
-const doChunked = async (input, chunkSize, callback) => {
-    let i = 0;
-    const processing = [...input];
-    while (processing.length) {
-        const chunk = processing.splice(0, chunkSize);
-        const tasks = [];
-
-        for (const item of chunk) {
-            tasks.push(callback(item));
-            i++;
-        }
-
-        await Promise.all(tasks);
-        console.log(`${i} / ${input.length}`);
-    }
-}
-
-function sortObjByKey(value) {
-    return (typeof value === 'object') ?
-      (Array.isArray(value) ?
-        value.map(sortObjByKey) :
-        Object.keys(value).sort().reduce(
-          (o, key) => {
-            const v = value[key];
-            o[key] = sortObjByKey(v);
-            return o;
-          }, {})
-      ) :
-      value;
-  }
-
 const icons = await fetchIcons();
 const iconNames = icons.map(icon => icon.name);
 
@@ -86,7 +57,7 @@ const res = {};
 await doChunked(iconNames, 100, async (iconName) => {
     const svg = await fetchIcon(iconName);
     res[iconName] = svg;
-})
+}, true);
 
 const lastExists = await stat(lastIconsPath)
     .then(s => s.isFile)
@@ -123,6 +94,20 @@ if (lastExists) {
             changelog = JSON.parse(changelogContent);
         }
 
+        let changed = changedIcons.map(name => ({
+            name,
+            before: previousIcons[name],
+            after: res[name],
+        }));
+
+        const diffingPromises = changed.map(async change => {
+            return {
+                ...change,
+                diff: await diffVersion(change),
+            };
+        })
+        changed = await Promise.all(diffingPromises);
+
         changelog.versions.push({
             version,
             date: new Date().getTime(),
@@ -134,16 +119,11 @@ if (lastExists) {
                 name,
                 icon: previousIcons[name],
             })),
-            changed: changedIcons.map(name => ({
-                name,
-                before: previousIcons[name],
-                after: res[name],
-            }))
+            changed,
         });
 
 
-        await writeFile(changelogPath, JSON.stringify(sortObjByKey(changelog)), { encoding: 'utf-8' });
-
+        await writeSortedJson(changelogPath, changelog);
     }
 
 }
@@ -151,4 +131,4 @@ if (lastExists) {
 const fileContent = {
     icons: res,
 };
-await writeFile(lastIconsPath, JSON.stringify(sortObjByKey(fileContent)), {encoding: 'utf-8'});
+await writeSortedJson(lastIconsPath, fileContent);
