@@ -1,5 +1,6 @@
 import { error } from '@sveltejs/kit';
 import changelog from '$lib/../../data/changelog.json'
+import { filterSmallChanges } from '$lib/utils';
 
 export const prerender = true;
 export const csr = false;
@@ -15,6 +16,9 @@ export async function load({params}) {
 
     return {
         version: version.date,
-        changes: version,
+        changes: {
+            ...version,
+            changed: filterSmallChanges(version.changed),
+        },
     };
 }

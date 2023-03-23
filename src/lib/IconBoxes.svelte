@@ -18,6 +18,10 @@
                             <div class='del'>{@html info.before}</div>
                             <div>&rarr;</div>
                             <div class='ins'>{@html info.after}</div>
+                            {#if info.diff?.img}
+                                <div aria-hidden="true" class='diffsep'></div>
+                                <img alt='Diff visualization' src={info.diff.img}>
+                            {/if}
                         </div>
                     {/if}
                 </div>
@@ -50,5 +54,11 @@
         display: flex;
         align-items: center;
         gap: 16px;
+    }
+
+    .diffsep {
+        width: 1px;
+        height: 70%;
+        background: #727272;
     }
 </style>
