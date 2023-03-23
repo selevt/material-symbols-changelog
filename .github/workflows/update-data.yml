@@ -10,3 +10,5 @@ jobs:
           ref: imgdiff
       - run: npm ci
       - run: node calc_diff.mjs
+      - run: git status
+      - run: git diff
