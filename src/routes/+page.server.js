@@ -26,6 +26,8 @@ export async function load() {
         } else {
             return {...version, changed};
         }
+    }).filter(version => {
+        return version.added.length || version.removed.length || version.changed.length;
     });
 
     return {

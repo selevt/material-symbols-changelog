@@ -15,6 +15,6 @@ export function filterSmallChanges(changed) {
         return [];
     }
     return changed.filter(item => {
-        return !item.diff || item.diff.percentage >= 0.05;
+        return !item.diff || item.diff.percentage >= 0.5;
     });
 }
