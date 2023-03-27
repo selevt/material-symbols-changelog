@@ -7,7 +7,7 @@
 <!-- Hide layout until there is content -->
 {#if data.changelog?.length}
     <p>
-        This is an inofficial changelog for <a href="https://fonts.google.com/icons">Material Symbols</a>
+        This is an unofficial changelog for <a href="https://fonts.google.com/icons">Material Symbols</a>
         and not affiliated with Google or the Material Symbols project.
     </p>
 
