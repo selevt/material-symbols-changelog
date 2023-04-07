@@ -7,13 +7,13 @@
 <!-- Hide layout until there is content -->
 {#if data.changelog?.length}
     <p>
-        This is an unofficial changelog for <a href="https://fonts.google.com/icons">Material Symbols</a>
-        and not affiliated with Google or the Material Symbols project.
+        Unofficial changelog for <a href="https://fonts.google.com/icons">Material Symbols</a>,
+        not affiliated with Google or the Material Symbols project. <a href='/about'>More info</a>.
     </p>
 
     {#each data.changelog as version}
         <section>
-            <a href='/version/{version.date}'><h2 id='version-{version.date}'>{formatTimestamp(version.date)} <sup>v{version.version}</sup></h2></a>
+            <a href='/version/{version.date}'><h2 id='version-{version.date}'>{formatTimestamp(version.date)}</h2></a>
 
             {#if 'note' in version && version.note}<p>{version.note}</p>{/if}
 
