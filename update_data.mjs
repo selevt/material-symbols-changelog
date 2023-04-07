@@ -1,7 +1,7 @@
 import { resolve } from 'node:path';
-import { stat, writeFile, readFile } from 'node:fs/promises';
-import { doChunked, writeSortedJson } from './util.mjs';
-import { diffVersion } from './calc_diff.mjs';
+import { stat, readFile } from 'node:fs/promises';
+import { doChunked, writeSortedJson } from './update/util.mjs';
+import { diffVersion } from './update/diff.mjs';
 
 const targetDir = resolve(process.cwd(), 'data');
 const lastIconsPath = resolve(targetDir, 'last.json');
