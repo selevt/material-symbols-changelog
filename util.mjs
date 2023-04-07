@@ -46,5 +46,5 @@ function sortObjByKey(value) {
  * @returns 
  */
 export const writeSortedJson = async (path, objectToSave) => {
-    return await writeFile(path, JSON.stringify(sortObjByKey(objectToSave)), { encoding: 'utf-8' });
+    return await writeFile(path, JSON.stringify(sortObjByKey(objectToSave), null, 2), { encoding: 'utf-8' });
 }
