@@ -11,6 +11,10 @@
 </svelte:head>
 
 <main class="container">
-    <a href='/'><h1>Material Symbols Changelog</h1></a>
+    <a href='/'>
+        <h1>
+            {#if $page.route.id !== '/'}<span aria-hidden="true">&lt;</span>{/if} Material Symbols Changelog
+        </h1>
+    </a>
     <slot></slot>
 </main>
