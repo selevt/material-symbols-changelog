@@ -84,6 +84,7 @@ if (lastExists) {
 
     if (addedIcons.length || removedIcons.length || changedIcons.length) {
         const version = icons.reduce((v, icon) => icon.version > v ? icon.version : v, 0)
+        /** @type {import("./src/lib/types").Changelog} */
         let changelog = { versions: [] };
 
         const changelogExists = await stat(changelogPath)

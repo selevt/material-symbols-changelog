@@ -1,6 +1,13 @@
 <script>
     /** @type {string} */
     export let title;
+
+    /**
+     * @typedef {import('$lib/types').Version} Version
+     */
+    /**
+     * @type {Version['added'] | Version['removed'] | Version['changed']}
+     */
     export let icons;
 </script>
 
@@ -11,9 +18,9 @@
             {#each icons as info}
                 <div class='info_box'>
                     <div><code>{info.name}</code></div>
-                    {#if info.icon}
+                    {#if 'icon' in info && info.icon}
                         <div>{@html info.icon}</div>
-                    {:else if info.before && info.after}
+                    {:else if 'before' in info && info.before && info.after}
                         <div class='changed_icon'>
                             <div class='del'>{@html info.before}</div>
                             <div>&rarr;</div>

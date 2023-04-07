@@ -7,7 +7,7 @@ export const csr = false;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({params}) {
-    /** @type {{date: number, added: any[], removed: [], changed: []}[]} */
+    /** @type {import('$lib/types').Changelog['versions']} */
     const versions = changelog.versions;
     const version = versions.find(v => `${v.date}` === params.version);
     if (!version) {

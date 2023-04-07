@@ -3,7 +3,6 @@
     import IconBoxes from '$lib/IconBoxes.svelte';
 
     export let data;
-    /** @type {typeof data['changes']} */
     let version = data.changes;
     $: version: data.changes;
 </script>

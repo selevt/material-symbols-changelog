@@ -1,5 +1,5 @@
 import { filterSmallChanges } from '$lib/utils';
-import changelog from '../../data/changelog.json'
+import changelog from '../../data/changelog.json';
 
 export const prerender = true;
 export const csr = false;
@@ -8,7 +8,8 @@ const LIMIT = 100;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
-    /** @type {{date: number, added: any[], removed: [], changed: []}[]} */
+    
+    /** @type {import('$lib/types').Changelog['versions']} */
     const versions = changelog.versions;
     const sortedVersions = versions.sort((a, b) => b.date - a.date)
     const filteredVersions = sortedVersions.map(version => {

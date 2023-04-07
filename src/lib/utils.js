@@ -8,7 +8,7 @@ export function formatTimestamp(timestamp) {
 
 /**
  * 
- * @param {{diff: {percentage: number}}[]} changed 
+ * @param {import('./types').Version['changed']} changed 
  */
 export function filterSmallChanges(changed) {
     if (!changed) {
