@@ -13,7 +13,7 @@
 
     {#each data.changelog as version}
         <section>
-            <a href='/version/{version.date}'><h2 id='version-{version.date}'>{formatTimestamp(version.date)}</h2></a>
+            <h2 id='version-{version.date}'><a href='/version/{version.date}'>{formatTimestamp(version.date)}</a></h2>
 
             {#if 'note' in version && version.note}<p>{version.note}</p>{/if}
 
