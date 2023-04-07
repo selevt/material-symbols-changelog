@@ -8,7 +8,7 @@
 {#if data.changelog?.length}
     <p>
         Unofficial changelog for <a href="https://fonts.google.com/icons">Material Symbols</a>,
-        not affiliated with Google or the Material Symbols project. <a href='/about'>More info</a>.
+        not affiliated with Google or the Material Symbols project. <a href='/about'>About this project</a>.
     </p>
 
     {#each data.changelog as version}

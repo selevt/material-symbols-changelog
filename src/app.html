@@ -6,9 +6,13 @@
 		<meta name="viewport" content="width=device-width" />
 		<title>Material Symbols Changelog</title>
 
-		<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+		<link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.7/css/pico.min.css">
 		<style>
 			h2, h3 { --typography-spacing-vertical: 1rem; }
+			:root:not([data-theme=dark]), [data-theme=light] { --code-color: hsl(205deg, 10%, 40%); }
+			@media only screen and (prefers-color-scheme: dark) {
+				:root:not([data-theme]) { --code-color: hsl(205deg, 10%, 60%); }
+			}
 		</style>
 
 		%sveltekit.head%
