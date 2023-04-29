@@ -12,5 +12,5 @@
 </p>
 
 <p>
-    Made by <a href='https://github.com/selevt'>selevt</a>.
+    This project is open source and hosted on GitHub at <a href='https://github.com/selevt/material-symbols-changelog'>selevt/material-symbols-changelog</a>.
 </p>
