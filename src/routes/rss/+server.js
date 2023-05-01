@@ -2,6 +2,8 @@
 import changelog from '$lib/../../data/changelog.json'
 import { buildDescription, filterSmallChanges, formatTimestamp } from '$lib/utils';
 
+export const prerender = true;
+
 const LIMIT_ITEMS = 20;
 const SKIP_START = 7;
 const SKIP_END = 22;
