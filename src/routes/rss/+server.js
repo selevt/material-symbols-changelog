@@ -23,7 +23,7 @@ export async function GET(e) {
         filteredVersions = filteredVersions.slice(0, LIMIT_ITEMS);
     }
 
-    const APP_PATH = 'https://' + (process.env.VERCEL_URL ?? 'material-symbols-changelog.vercel.app');
+    const APP_PATH = 'https://' + (process.env.PUBLIC_URL ?? process.env.VERCEL_URL ?? 'material-symbols-changelog.vercel.app');
     const RSS_PATH = APP_PATH + '/rss';
 
     /** @type {number[]} */
@@ -39,22 +39,22 @@ export async function GET(e) {
     return new Response(
       `
 <?xml version="1.0" encoding="UTF-8" ?>
-    <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-        <title>Material Symbols Changelog</title>
-        <description>Latest changes of the Material Symbols icon library</description>
-        <link>${APP_PATH}</link>
-        <atom:link href="${RSS_PATH}" rel="self" type="application/rss+xml" />
-        <language>en-us</language>
-        <skipHours>${skipHours.map(i => `<hour>${i}</hour>`).join('')}</skipHours>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>Material Symbols Changelog</title>
+    <description>Latest changes of the Material Symbols icon library</description>
+    <link>${APP_PATH}</link>
+    <atom:link href="${RSS_PATH}" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <skipHours>${skipHours.map(i => `<hour>${i}</hour>`).join('')}</skipHours>
 ${filteredVersions.map(v => (
 `        <item>
-            <title>Changes from ${formatTimestamp(v.date)}</title>
-            <link>${APP_PATH}/version/${v.date}</link>
-            <guid>${APP_PATH}/version/${v.date}</guid>
-            <description>${buildDescription(v)}</description>
-            <pubDate>${new Date(v.date).toUTCString()}</pubDate>
-        </item>`)
+        <title>Changes from ${formatTimestamp(v.date)}</title>
+        <link>${APP_PATH}/version/${v.date}</link>
+        <guid>${APP_PATH}/version/${v.date}</guid>
+        <description>${buildDescription(v)}</description>
+        <pubDate>${new Date(v.date).toUTCString()}</pubDate>
+    </item>`)
 ).join('\n')}
     </channel>
 </rss>
