@@ -23,6 +23,9 @@ export async function GET(e) {
         filteredVersions = filteredVersions.slice(0, LIMIT_ITEMS);
     }
 
+    const APP_PATH = 'https://' + (process.env.VERCEL_URL ?? 'material-symbols-changelog.vercel.app');
+    const RSS_PATH = APP_PATH + '/rss';
+
     /** @type {number[]} */
     const skipHours = [];
     for (let i=SKIP_START; i<=SKIP_END; i++) {
@@ -40,15 +43,15 @@ export async function GET(e) {
     <channel>
         <title>Material Symbols Changelog</title>
         <description>Latest changes of the Material Symbols icon library</description>
-        <link>https://material-symbols-changelog.vercel.app</link>
-        <atom:link href="${e.url.toString()}" rel="self" type="application/rss+xml" />
+        <link>${APP_PATH}</link>
+        <atom:link href="${RSS_PATH}" rel="self" type="application/rss+xml" />
         <language>en-us</language>
         <skipHours>${skipHours.map(i => `<hour>${i}</hour>`).join('')}</skipHours>
 ${filteredVersions.map(v => (
 `        <item>
             <title>Changes from ${formatTimestamp(v.date)}</title>
-            <link>https://material-symbols-changelog.vercel.app/version/${v.date}</link>
-            <guid>https://material-symbols-changelog.vercel.app/version/${v.date}</guid>
+            <link>${APP_PATH}/version/${v.date}</link>
+            <guid>${APP_PATH}/version/${v.date}</guid>
             <description>${buildDescription(v)}</description>
             <pubDate>${new Date(v.date).toUTCString()}</pubDate>
         </item>`)
