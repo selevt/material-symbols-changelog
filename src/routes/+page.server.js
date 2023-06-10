@@ -4,7 +4,7 @@ import changelog from '../../data/changelog.json';
 export const prerender = true;
 export const csr = false;
 
-const LIMIT = 100;
+const LIMIT = 150;
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load() {
@@ -28,7 +28,7 @@ export async function load() {
             return {...version, changed};
         }
     }).filter(version => {
-        return version.added.length || version.removed.length || version.changed.length;
+        return version.added.length || version.removed.length || version.changed.length || ('note' in version && version.note);
     });
 
     return {
