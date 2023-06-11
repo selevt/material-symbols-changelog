@@ -36,6 +36,8 @@
             {/each}
         </ul>
     </details>
+
+    <a href='/all' class='showAllLink secondary'>Show all</a>
 </div>
 
 <style>
@@ -46,5 +48,8 @@
     }
     .selectlist {
         width: fit-content;
+    }
+    .showAllLink {
+        padding: var(--form-element-spacing-vertical) 0;
     }
 </style>
