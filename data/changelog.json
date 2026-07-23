@@ -81215,6 +81215,18 @@
       "date": 1784001053475,
       "removed": [],
       "version": 448
+    },
+    {
+      "added": [
+        {
+          "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"48\" viewBox=\"0 -960 960 960\" width=\"48\"><path d=\"m368-200 210-280-210-280h74l210 280-210 280h-74Z\"/></svg>",
+          "name": "single_arrow"
+        }
+      ],
+      "changed": [],
+      "date": 1784779717212,
+      "removed": [],
+      "version": 449
     }
   ]
 }
