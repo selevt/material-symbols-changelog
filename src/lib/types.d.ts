@@ -6,6 +6,7 @@ export interface Version {
     /** timestamp */
     date: number;
     version: number;
+    note?: string;
     added: {
         icon: string;
         name: string;
